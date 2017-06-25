@@ -1,7 +1,29 @@
 import Phaser from 'phaser'
 
 
-export default class extends Phaser.Sprite {
+export default class Door extends Phaser.Sprite {
+  static createFloorDoor({ game, offset }) {
+    const door = new this({
+      game,
+      x: game.world.width + 100,
+      y: game.world.height + 80 + offset,
+      asset: 'door-reversed',
+    })
+    door.setUp()
+    return door
+  }
+
+  static createCellingDoor({ game, offset }) {
+    const door = new this({
+      game,
+      x: game.world.width + 100,
+      y: offset - 80,
+      asset: 'door',
+    })
+    door.setUp()
+    return door
+  }
+
   constructor({ game, x, y, asset }) {
     super(game, x, y, asset)
     this.anchor.setTo(0.5)
@@ -24,6 +46,4 @@ export default class extends Phaser.Sprite {
   setUpSpeed() {
     this.body.velocity.x = this.game.gameSpeed
   }
-
-
 }
